@@ -222,15 +222,15 @@ img, svg {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: var(--neutral-100);
 }
 
 .mobile-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-200) var(--spacing-300);
-  background-color: var(--neutral-50);
-  border-bottom: 1px solid var(--neutral-200);
+  padding: var(--spacing-200);
+  border-bottom: 1px solid var(--neutral-400);
 }
 
 .mobile-header .logo-wrapper {
@@ -240,9 +240,11 @@ img, svg {
 }
 
 .mobile-header .menu-btn {
+  width: 32px;
+  height: 32px;
   padding: var(--spacing-075);
   border: 1px solid var(--neutral-400);
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-4);
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -259,7 +261,7 @@ img, svg {
 
 .content-wrapper {
   flex: 1;
-  padding: var(--spacing-400) var(--spacing-300);
+  padding: var(--spacing-250) var(--spacing-200) var(--spacing-500);
   max-width: 800px;
   margin: 0 auto;
 }
@@ -428,7 +430,7 @@ img, svg {
 .booking-header-tag {
   color: var(--neutral-600);
   text-transform: uppercase;
-  margin-bottom: var(--spacing-075);
+  margin-bottom: var(--spacing-050);
 }
 
 .booking-title {
@@ -495,6 +497,7 @@ img, svg {
   min-height: 320px;
   justify-content: space-between;
   z-index: 2;
+  transform: rotate(2deg);
 }
 
 .welcome-card::before {
@@ -554,7 +557,8 @@ img, svg {
   position: relative;
   margin: var(--spacing-150) 0;
   z-index: 1;
-  margin-top: -24px;
+  margin-top: -16px;
+  transform: rotate(-2deg);
 }
 
 .receipt-card {
@@ -863,6 +867,7 @@ a:focus-visible {
   .welcome-card, .receipt-card-wrapper {
     flex: 1;
     margin: 0;
+    transform: none;
   }
 
   .info-cards-container {
