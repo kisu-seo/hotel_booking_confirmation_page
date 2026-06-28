@@ -1,7 +1,9 @@
 /* === Fonts & Reset === */
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&display=swap');
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -32,7 +34,8 @@ a {
   color: inherit;
 }
 
-img, svg {
+img,
+svg {
   display: block;
   max-width: 100%;
 }
@@ -401,6 +404,10 @@ img, svg {
   color: #2B2620;
 }
 
+.nav-link:hover {
+  background: var(--neutral-0);
+}
+
 .nav-link-content {
   display: flex;
   align-items: center;
@@ -616,8 +623,12 @@ img, svg {
   padding: 0px;
   gap: 10px;
   width: 100%;
-  max-width: 343px;
-  margin: 0 auto var(--spacing-400);
+  max-width: 288px;
+  margin: 0 auto var(--spacing-600);
+}
+
+.cards-sun-icon {
+  display: none;
 }
 
 /* === Component: Welcome Card === */
@@ -742,9 +753,7 @@ img, svg {
 
 /* === Component: Receipt Card === */
 .receipt-card-wrapper {
-  filter: drop-shadow(0px 1px 0px rgba(0, 0, 0, 0.03)) 
-          drop-shadow(0px 10px 15px rgba(62, 44, 30, 0.12)) 
-          drop-shadow(0px 20px 25px rgba(62, 44, 30, 0.08));
+  filter: drop-shadow(0px 1px 0px rgba(0, 0, 0, 0.03)) drop-shadow(0px 10px 15px rgba(62, 44, 30, 0.12)) drop-shadow(0px 20px 25px rgba(62, 44, 30, 0.08));
   position: relative;
   width: 327px;
   height: 420px;
@@ -762,13 +771,11 @@ img, svg {
   width: 327px;
   height: 420px;
   background: #FDFBF7;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 32px,
-    rgba(228, 222, 213, 0.096) 32px,
-    rgba(228, 222, 213, 0.096) 33px
-  );
+  background-image: repeating-linear-gradient(to bottom,
+      transparent,
+      transparent 32px,
+      rgba(228, 222, 213, 0.096) 32px,
+      rgba(228, 222, 213, 0.096) 33px);
   border-radius: 20px;
   transform: rotate(-2deg);
   position: relative;
@@ -980,7 +987,7 @@ img, svg {
   align-items: flex-start;
   padding: 0px;
   gap: 18px;
-  width: 343px;
+  width: 288px;
 }
 
 .info-card {
@@ -990,12 +997,18 @@ img, svg {
   align-items: flex-start;
   padding: 20px 16px;
   gap: 20px;
-  width: 343px;
+  width: 288px;
   background: #FDFBF7;
   border: 1px solid #E4DED5;
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.02), 0px 1px 1px rgba(62, 44, 30, 0.04), 0px 18px 40px -28px rgba(62, 44, 30, 0.25);
   border-radius: 16px;
   position: relative;
+}
+
+.info-card.arrival,
+.info-card.wifi,
+.info-card.breakfast {
+  width: 343px;
 }
 
 .info-card-header {
@@ -1144,16 +1157,11 @@ img, svg {
   margin: 0;
 }
 
-.info-card-desc.text-preset-7 {
+.info-card-desc.text-preset-5 {
   width: 311px;
-  font-family: 'DM Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 140%;
   display: flex;
   align-items: center;
-  color: #5A4C3C;
+  color: var(--neutral-600);
   margin: 0;
 }
 
@@ -1178,6 +1186,10 @@ img, svg {
   background: #F2EEEA;
   border-radius: 8px;
   box-sizing: border-box;
+}
+
+.wifi-table tr:first-child {
+  margin-bottom: 4px;
 }
 
 .wifi-table td {
@@ -1252,20 +1264,723 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
+/* === Responsive Design (Tablet) === */
+@media (min-width: 768px) {
+  .sidebar {
+    width: 384px;
+    left: -384px;
+    padding: 16px 24px;
+  }
+
+  .sidebar-header,
+  .sidebar-nav,
+  .sidebar-top,
+  .sidebar-footer,
+  .sidebar-footer-info,
+  .sidebar-divider {
+    width: 336px;
+  }
+
+  .nav-link {
+    width: 336px;
+  }
+
+  .weather-widget {
+    width: 336px;
+  }
+
+  .address-text {
+    width: 336px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mobile-header {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px !important;
+    gap: 10px;
+    width: 100% !important;
+    height: 74px !important;
+    border-bottom: 1px solid #E4DED5 !important;
+  }
+
+  .mobile-header .menu-btn {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    width: 40px !important;
+    height: 40px !important;
+    border: 1px solid #E4DED5 !important;
+    border-radius: 4px !important;
+    background: transparent;
+  }
+
+  .content-wrapper {
+    padding: 0 !important;
+  }
+
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 24px 40px;
+    gap: 40px;
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
+  }
+
+  .booking-top-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 720px;
+    height: 72px;
+    margin-bottom: 40px !important;
+  }
+
+  .booking-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+    width: 307px !important;
+    height: 72px !important;
+    margin-bottom: 0;
+  }
+
+  .booking-header-tag {
+    font-family: 'DM Mono';
+    font-size: 12px !important;
+    letter-spacing: 2px !important;
+    line-height: 140% !important;
+  }
+
+  .booking-title {
+    font-family: 'Fraunces';
+    font-size: 40px !important;
+    letter-spacing: -0.5px !important;
+    line-height: 120% !important;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px !important;
+    gap: 16px !important;
+    width: 281px !important;
+    height: 37px !important;
+    flex: none !important;
+    order: 1 !important;
+    flex-grow: 0 !important;
+    margin: 0 !important;
+  }
+
+  .action-buttons .btn-secondary {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px !important;
+    width: 120px !important;
+    height: 37px !important;
+    background: transparent !important;
+    border: 1px solid var(--neutral-400) !important;
+    border-radius: 999px !important;
+    font-family: 'DM Sans' !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    line-height: 120% !important;
+    letter-spacing: 0.3px !important;
+    color: #2B2620 !important;
+    flex: none !important;
+    order: 0 !important;
+    flex-grow: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  .action-buttons .btn-secondary:hover {
+    background-color: var(--neutral-200) !important;
+    border-color: var(--neutral-400) !important;
+  }
+
+  .action-buttons .btn-primary:hover {
+    background-color: var(--neutral-800) !important;
+  }
+
+  .action-buttons .btn-primary {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px !important;
+    width: 145px !important;
+    height: 37px !important;
+    background: #2B2620 !important;
+    border-radius: 999px !important;
+    font-family: 'DM Sans' !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    line-height: 120% !important;
+    letter-spacing: 0.3px !important;
+    color: #FFF4DC !important;
+  }
+
+  .cards-container {
+    display: flex;
+    flex-direction: row-reverse !important;
+    justify-content: center !important;
+    align-items: center;
+    padding: 0px;
+    width: 720px;
+    height: 480px !important;
+    margin: 0 auto 55px !important;
+    gap: 0;
+  }
+
+  .welcome-card {
+    width: 340px !important;
+    height: 420px !important;
+    transform: rotate(4deg) !important;
+    z-index: 2 !important;
+    margin: 0 !important;
+    flex: none !important;
+  }
+
+  .welcome-card-header {
+    padding: 16px 0px 0px !important;
+    width: 292px !important;
+    height: 65px !important;
+    border-top: 1px dashed #E07A3F !important;
+    box-sizing: border-box;
+  }
+
+  .welcome-card-body {
+    padding: 0px !important;
+    gap: 24px !important;
+    width: 292px !important;
+    height: 221px !important;
+  }
+
+  .welcome-card-body-top {
+    gap: 8px !important;
+    width: 292px !important;
+    height: 79px !important;
+  }
+
+  .welcome-card-subtitle {
+    font-size: 20px !important;
+    line-height: 140% !important;
+    letter-spacing: -0.1px !important;
+  }
+
+  .welcome-card-hostname {
+    font-size: 40px !important;
+    line-height: 120% !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  .welcome-card-desc {
+    font-size: 14px !important;
+    line-height: 140% !important;
+  }
+
+  .welcome-card-footer {
+    gap: 4px !important;
+    width: 292px !important;
+    height: 46px !important;
+  }
+
+  .welcome-card-footer-label {
+    width: 292px !important;
+    height: 14px !important;
+  }
+
+  .welcome-card-room {
+    width: 292px !important;
+    height: 28px !important;
+    font-size: 20px !important;
+    line-height: 140% !important;
+    letter-spacing: -0.1px !important;
+  }
+
+  .receipt-card-wrapper {
+    width: 340px !important;
+    height: 420px !important;
+    z-index: 0 !important;
+    margin: 0 !important;
+    transform: none !important;
+    flex: none !important;
+  }
+
+  .receipt-payment-info {
+    white-space: nowrap !important;
+  }
+
+  .receipt-card {
+    width: 340px !important;
+    height: 420px !important;
+    transform: rotate(-4deg) !important;
+  }
+
+  .receipt-header {
+    padding: 0px 0px 12px !important;
+    height: 58px !important;
+    width: 292px !important;
+    box-sizing: border-box;
+  }
+
+  .receipt-header .receipt-no {
+    height: 30px !important;
+    width: 67px !important;
+  }
+
+  .receipt-details {
+    border-top: 1px dashed #E4DED5 !important;
+    padding: 12px 0px 0px !important;
+    gap: 8px !important;
+    width: 292px !important;
+    height: 88px !important;
+    box-sizing: border-box;
+  }
+
+  .receipt-total {
+    border-top: 1px solid #7A6A57 !important;
+    padding: 12px 0px 0px !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    gap: 103px !important;
+    width: 292px !important;
+    height: 46px !important;
+    box-sizing: border-box;
+  }
+
+  .receipt-total .total-label {
+    font-size: 12px !important;
+    line-height: 140% !important;
+    letter-spacing: 2px !important;
+    width: 90px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .receipt-total .total-value {
+    font-size: 24px !important;
+    line-height: 140% !important;
+    letter-spacing: -0.2px !important;
+    width: 97px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .receipt-footer {
+    display: flex !important;
+    justify-content: flex-start !important;
+    gap: 80px !important;
+    width: auto !important;
+    height: 28px !important;
+  }
+
+  .receipt-payment-info {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  .barcode-wrapper {
+    width: 93px !important;
+    height: 28px !important;
+    flex: none !important;
+    flex-shrink: 0 !important;
+  }
+
+  .barcode-wrapper img {
+    width: 93px !important;
+    height: 28px !important;
+    display: block !important;
+  }
+
+  .info-cards-container {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    align-content: flex-start !important;
+    padding: 0px !important;
+    gap: 18px !important;
+    width: 720px !important;
+    height: 522px !important;
+    margin: 0 auto !important;
+  }
+
+  .info-card {
+    width: 351px !important;
+    height: 252px !important;
+    padding: 24px 20px !important;
+    gap: 24px !important;
+  }
+
+  .info-card.arrival {
+    background: #FDFBF7 !important;
+    border: 1px solid #E4DED5 !important;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.02), 0px 1px 1px rgba(62, 44, 30, 0.04), 0px 18px 40px -28px rgba(62, 44, 30, 0.25) !important;
+    border-radius: 16px !important;
+  }
+
+  .arrival .info-card-header {
+    width: 311px !important;
+    height: 40px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+
+  .arrival .badge-icon {
+    width: 40px !important;
+    height: 40px !important;
+    background: #B7411B !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .arrival .badge-icon img {
+    width: 24px !important;
+    height: 25px !important;
+  }
+
+  .arrival .badge-label {
+    width: 261px !important;
+    height: 20px !important;
+    font-family: 'DM Mono' !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    line-height: 140% !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #B7411B !important;
+  }
+
+  .arrival .info-card-number {
+    position: absolute !important;
+    width: 26px !important;
+    height: 34px !important;
+    right: 0px !important;
+    font-family: 'Fraunces' !important;
+    font-size: 24px !important;
+    line-height: 140% !important;
+    letter-spacing: -0.2px !important;
+    color: #B7411B !important;
+  }
+
+  .arrival .info-card-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 0px !important;
+    gap: 16px !important;
+    width: 311px !important;
+    height: 132px !important;
+  }
+
+  .arrival .info-card-title {
+    width: 311px !important;
+    height: 34px !important;
+    font-family: 'Fraunces' !important;
+    font-size: 24px !important;
+    line-height: 140% !important;
+    letter-spacing: -0.2px !important;
+    color: #2B2620 !important;
+    margin: 0 !important;
+  }
+
+  .arrival .info-card-desc.text-preset-5-medium {
+    width: 311px !important;
+    height: 14px !important;
+    font-family: 'DM Sans' !important;
+    font-size: 12px !important;
+    line-height: 120% !important;
+    letter-spacing: 0.4px !important;
+    color: #7A6A57 !important;
+    margin: 0 !important;
+  }
+
+  .arrival .info-card-desc.text-preset-5 {
+    width: 311px !important;
+    height: 60px !important;
+    font-family: 'DM Sans' !important;
+    font-size: 14px !important;
+    line-height: 140% !important;
+    color: #5A4C3C !important;
+    margin: 0 !important;
+  }
+
+  .info-card.wifi {
+    background: #FDFBF7 !important;
+    border: 1px solid #E4DED5 !important;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.02), 0px 1px 1px rgba(62, 44, 30, 0.04), 0px 18px 40px -28px rgba(62, 44, 30, 0.25) !important;
+    border-radius: 16px !important;
+  }
+
+  .wifi .info-card-header {
+    width: 311px !important;
+    height: 40px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+
+  .wifi .badge-icon {
+    width: 40px !important;
+    height: 40px !important;
+    background: #5769C6 !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .wifi .badge-icon img {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .wifi .badge-label {
+    width: 261px !important;
+    height: 20px !important;
+    font-family: 'DM Mono' !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    line-height: 140% !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #5769C6 !important;
+  }
+
+  .wifi .info-card-number {
+    position: absolute !important;
+    width: 30px !important;
+    height: 34px !important;
+    right: 0px !important;
+    font-family: 'Fraunces' !important;
+    font-size: 24px !important;
+    line-height: 140% !important;
+    letter-spacing: -0.2px !important;
+    color: #5769C6 !important;
+  }
+
+  .wifi .info-card-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 0px !important;
+    gap: 16px !important;
+    width: 311px !important;
+    height: 140px !important;
+  }
+
+  .wifi .info-card-title {
+    width: 311px !important;
+    height: 34px !important;
+    font-family: 'Fraunces' !important;
+    font-size: 24px !important;
+    line-height: 140% !important;
+    letter-spacing: -0.2px !important;
+    color: #2B2620 !important;
+    margin: 0 !important;
+  }
+
+  .wifi .info-card-desc.text-preset-5 {
+    width: 311px !important;
+    height: 14px !important;
+    font-family: 'DM Sans' !important;
+    font-size: 12px !important;
+    line-height: 120% !important;
+    letter-spacing: 0.4px !important;
+    color: #7A6A57 !important;
+    margin: 0 !important;
+  }
+
+  .wifi-table {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 298px !important;
+    height: 68px !important;
+    gap: 4px !important;
+    margin: 0 !important;
+  }
+
+  .wifi-table tr {
+    width: 298px !important;
+    height: 32px !important;
+    padding: 0px 10px !important;
+  }
+
+  .wifi-table tr:first-child {
+    margin-bottom: 4px !important;
+  }
+
+  .info-card.breakfast {
+    background: #FDFBF7 !important;
+    border: 1px solid #E4DED5 !important;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.02), 0px 1px 1px rgba(62, 44, 30, 0.04), 0px 18px 40px -28px rgba(62, 44, 30, 0.25) !important;
+    border-radius: 16px !important;
+  }
+
+  .breakfast .info-card-header {
+    width: 311px !important;
+    height: 40px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+
+  .breakfast .badge-icon {
+    width: 40px !important;
+    height: 40px !important;
+    background: #C04A72 !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .breakfast .badge-icon img {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .breakfast .badge-label {
+    width: 261px !important;
+    height: 20px !important;
+    font-family: 'DM Mono' !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    line-height: 140% !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #C04A72 !important;
+  }
+
+  .breakfast .info-card-number {
+    position: absolute !important;
+    width: 29px !important;
+    height: 34px !important;
+    right: 0px !important;
+    font-family: 'Fraunces' !important;
+    font-size: 24px !important;
+    line-height: 140% !important;
+    letter-spacing: -0.2px !important;
+    color: #C04A72 !important;
+  }
+
+  .breakfast .info-card-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 0px !important;
+    gap: 16px !important;
+    width: 311px !important;
+    height: 130.85px !important;
+  }
+
+  .breakfast .info-card-title {
+    width: 311px !important;
+    height: 34px !important;
+    font-family: 'Fraunces' !important;
+    font-size: 24px !important;
+    line-height: 140% !important;
+    letter-spacing: -0.2px !important;
+    color: #2B2620 !important;
+    margin: 0 !important;
+  }
+
+  .breakfast .info-card-desc.text-preset-5-medium {
+    width: 311px !important;
+    height: 14px !important;
+    font-family: 'DM Sans' !important;
+    font-size: 12px !important;
+    line-height: 120% !important;
+    letter-spacing: 0.4px !important;
+    color: #7A6A57 !important;
+    margin: 0 !important;
+  }
+
+  .breakfast .info-card-desc.text-preset-5 {
+    width: 311px !important;
+    height: 58.85px !important;
+    font-family: 'DM Sans' !important;
+    font-size: 14px !important;
+    line-height: 140% !important;
+    color: #5A4C3C !important;
+    margin: 0 !important;
+  }
+}
+
 /* === Responsive Design (Desktop) === */
 @media (min-width: 1024px) {
   .mobile-header {
     display: none;
   }
 
+  .main-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+  }
+
   .sidebar {
     position: sticky;
     left: 0;
-    width: 320px;
+    width: 260px;
     height: 100vh;
+    padding: 20px 16px;
     box-shadow: 1px 0 0px var(--neutral-200);
     visibility: visible;
     transform: none;
+  }
+
+  .sidebar-header,
+  .sidebar-nav,
+  .sidebar-top,
+  .sidebar-footer,
+  .sidebar-footer-info,
+  .sidebar-divider {
+    width: 228px;
+  }
+
+  .nav-link,
+  .weather-widget,
+  .sidebar-footer-info p {
+    width: 228px;
+  }
+
+  .address-text {
+    width: 228px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
   }
 
   .sidebar-header .close-btn {
@@ -1273,38 +1988,126 @@ a:focus-visible {
   }
 
   .content-wrapper {
-    padding: var(--spacing-600) var(--spacing-500);
-    margin-left: var(--spacing-400);
+    flex: 1;
+    max-width: none;
+    margin: 0;
+    padding: var(--spacing-400) var(--spacing-500) !important;
+  }
+
+  .booking-top-section {
+    width: 100%;
   }
 
   .cards-container {
-    flex-direction: row;
-    align-items: stretch;
-    max-width: 800px;
-    width: 100%;
-    gap: var(--spacing-300);
+    width: 100% !important;
+    max-width: none;
+    margin: 0 auto var(--spacing-400) !important;
+  }
+
+  .cards-sun-icon {
+    display: block;
+    position: relative;
+    z-index: 5;
+    flex-shrink: 0;
+    align-self: center;
+    height: 164px;
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: width 0.4s ease, opacity 0.4s ease;
+  }
+
+  .cards-container:hover .cards-sun-icon {
+    width: 164px;
+    opacity: 1;
   }
 
   .welcome-card {
-    width: auto;
-    height: auto;
-    transform: none;
+    width: 400px !important;
+    height: 420px !important;
+    transform: rotate(4deg) !important;
+    transition: transform 0.4s ease;
+  }
+
+  .welcome-card-header,
+  .welcome-card-body,
+  .welcome-card-footer,
+  .welcome-card-footer-label,
+  .welcome-card-room {
+    width: 352px !important;
+  }
+
+  .welcome-card-title-group,
+  .welcome-card-subtitle,
+  .welcome-card-hostname,
+  .welcome-card-desc {
+    width: 352px;
   }
 
   .receipt-card-wrapper {
-    width: auto;
-    height: auto;
-    margin: 0;
+    width: 400px !important;
+    height: 420px !important;
+    margin: 0 -10px !important;
+    transform: none !important;
+    filter: none;
+    transition: margin 0.4s ease;
   }
 
   .receipt-card {
-    width: auto;
-    height: auto;
-    transform: none;
+    width: 400px !important;
+    height: 420px !important;
+    transform: rotate(-4deg) !important;
+    isolation: isolate;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.03), 0px 16px 30px -20px rgba(62, 44, 30, 0.35), 0px 20px 40px -30px rgba(62, 44, 30, 0.16);
+    transition: transform 0.4s ease;
+  }
+
+  .cards-container:hover .welcome-card {
+    transform: rotate(-9deg) !important;
+  }
+
+  .cards-container:hover .receipt-card-wrapper {
+    margin: 0 !important;
+  }
+
+  .cards-container:hover .receipt-card {
+    transform: rotate(9deg) !important;
+  }
+
+  .receipt-header,
+  .receipt-details,
+  .receipt-total,
+  .receipt-footer {
+    width: 352px !important;
+  }
+
+  .receipt-total,
+  .receipt-footer {
+    justify-content: space-between !important;
+  }
+
+  .receipt-dates {
+    width: 352px;
+  }
+
+  .receipt-header-text {
+    width: 285px;
+  }
+
+  .receipt-row {
+    width: 352px;
+  }
+
+  .receipt-row.text-preset-5 {
+    gap: 22px;
   }
 
   .info-cards-container {
     flex-direction: row;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    height: auto !important;
+    gap: var(--spacing-300) !important;
   }
 
   .info-card {
