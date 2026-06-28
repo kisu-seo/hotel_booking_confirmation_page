@@ -32,7 +32,6 @@
           <div class="sidebar-header">
             <div class="logo-wrapper">
               <img src="./assets/images/logo.svg" alt="" width="107" height="42">
-              <span class="text-preset-4">Maison Soleil</span>
             </div>
             <button class="close-btn" id="closeMenuBtn" aria-label="Close navigation menu">
               <img src="./assets/images/icon-close.svg" alt="" width="20" height="20">
@@ -74,7 +73,8 @@
           </nav>
         </div>
 
-        <div>
+        <!-- Footer Container -->
+        <footer class="sidebar-footer">
           <!-- Local weather -->
           <div class="weather-widget">
             <img src="./assets/images/icon-weather.svg" alt="" class="weather-bg-icon">
@@ -83,12 +83,13 @@
             <div class="weather-desc text-preset-7">Sunny · light breeze</div>
           </div>
 
-          <footer class="sidebar-footer text-preset-10">
-            <div>Est. 1987</div>
-            <div>Maison Soleil · 12 Rue des Oliviers · Cassis</div>
-            <div>© 2026 Maison Soleil</div>
-          </footer>
-        </div>
+          <!-- Info Section -->
+          <div class="sidebar-footer-info text-preset-10">
+            <p>Est. 1987</p>
+            <p class="address-text">Maison Soleil · 12 Rue des Oliviers · Cassis</p>
+            <p>© 2026 Maison Soleil</p>
+          </div>
+        </footer>
       </aside>
 
       <!-- === Main Content === -->
@@ -100,8 +101,8 @@
         </header>
 
         <div class="action-buttons">
-          <button class="btn-secondary text-preset-5-medium" onclick="window.print()">Print receipt</button>
-          <button class="btn-primary text-preset-5-medium">Add to calendar</button>
+          <button class="btn-secondary text-preset-5-semibold" onclick="window.print()">Print receipt</button>
+          <button class="btn-primary text-preset-5-semibold">Add to calendar</button>
         </div>
 
         <!-- === Booking Cards Section === -->
@@ -109,38 +110,51 @@
           
           <!-- Welcome Card -->
           <article class="welcome-card">
-            <img src="./assets/images/illustration-sun.svg" alt="" class="welcome-card-bg" width="80" height="80">
-            <div class="welcome-card-top">
-              <span class="welcome-card-tag text-preset-6">Welcome card</span>
-              <h2 class="welcome-card-title">
+            
+            <!-- Header Container -->
+            <div class="welcome-card-header">
+              <span class="welcome-card-tag text-preset-10">Welcome card</span>
+              <div class="welcome-card-icon">
+                <img src="./assets/images/illustration-sun.svg" alt="" width="49" height="49">
+              </div>
+            </div>
+            
+            <!-- Body Content Container -->
+            <div class="welcome-card-body">
+              <div class="welcome-card-title-group">
                 <span class="welcome-card-subtitle text-preset-4-italic">A note from your host,</span>
-                <span class="welcome-card-hostname text-preset-1-italic">Margaux.</span>
-              </h2>
+                <h2 class="welcome-card-hostname text-preset-1-italic">Margaux.</h2>
+              </div>
               <p class="welcome-card-desc text-preset-5">
                 We're so glad you're coming. The shutters will be open, the lemonade cold, and the cat - Poivre - pretending not to notice you.
               </p>
             </div>
+            
+            <!-- Footer Container -->
             <div class="welcome-card-footer">
               <span class="welcome-card-footer-label text-preset-10">Room</span>
-              <span class="welcome-card-room text-preset-4-italic">La Garrigue</span>
+              <span class="welcome-card-room text-preset-4">La Garrigue</span>
             </div>
+            
           </article>
 
           <!-- Receipt Card -->
           <div class="receipt-card-wrapper">
             <article class="receipt-card">
+              
+              <!-- Header Container -->
               <header class="receipt-header">
-                <span class="receipt-title text-preset-8">Receipt</span>
+                <div class="receipt-header-text">
+                  <span class="receipt-title text-preset-10">Receipt</span>
+                  <h2 class="receipt-section-title text-preset-4">Your stay</h2>
+                </div>
                 <div class="receipt-no text-preset-10">
                   <span>№ MS-2026</span>
                   <span>0421-AH</span>
                 </div>
               </header>
 
-              <div class="receipt-title-section">
-                <h2 class="receipt-section-title text-preset-4">Your stay</h2>
-              </div>
-
+              <!-- Dates Container -->
               <div class="receipt-dates">
                 <div class="date-block">
                   <div class="date-block-label text-preset-10">Check in</div>
@@ -154,29 +168,33 @@
                 </div>
               </div>
 
+              <!-- Details Container -->
               <div class="receipt-details">
-                <div class="receipt-row text-preset-5-medium">
+                <div class="receipt-row text-preset-5">
                   <span>Room · La Garrigue × 4 nights</span>
-                  <span>€ 620.00</span>
+                  <span class="receipt-cost text-preset-9">€ 620.00</span>
                 </div>
-                <div class="receipt-row text-preset-5-medium">
+                <div class="receipt-row text-preset-5">
                   <span>Breakfast · 2 guests</span>
-                  <span>€ 96.00</span>
+                  <span class="receipt-cost text-preset-9">€ 96.00</span>
                 </div>
-                <div class="receipt-row text-preset-5-medium">
+                <div class="receipt-row text-preset-5 tourist-tax">
                   <span>Tourist tax</span>
-                  <span>€ 14.40</span>
-                </div>
-                <div class="receipt-row total text-preset-3">
-                  <span>Total paid</span>
-                  <span>€ 730.40</span>
+                  <span class="receipt-cost text-preset-9">€ 14.40</span>
                 </div>
               </div>
 
+              <!-- Total Container -->
+              <div class="receipt-total">
+                <span class="total-label text-preset-8">Total paid</span>
+                <span class="total-value text-preset-3">€ 730.40</span>
+              </div>
+
+              <!-- Footer Container -->
               <footer class="receipt-footer">
-                <span class="receipt-payment-info text-preset-9">Paid · Wise · GBP</span>
+                <span class="receipt-payment-info text-preset-10">Paid · Wise · GBP</span>
                 <div class="barcode-wrapper">
-                  <img src="./assets/images/icon-barcode.svg" alt="Receipt Barcode" width="115" height="40">
+                  <img src="./assets/images/icon-barcode.svg" alt="Receipt Barcode" width="93" height="28">
                 </div>
               </footer>
             </article>
