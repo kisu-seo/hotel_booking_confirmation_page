@@ -1,4 +1,29 @@
-/* === Fonts & Reset === */
+/*
+ * =================================================================
+ * index.css — Maison Soleil | Hotel Booking Confirmation
+ * =================================================================
+ *
+ *  목차 (Table of Contents)
+ *  -----------------------------------------------------------------
+ *   1. Fonts & Reset
+ *   2. Design Tokens          — 색상, 반경, 여백 변수
+ *   3. Typography Presets     — text-preset-1 ~ 11
+ *   4. Layout                 — app-container, mobile-header, main-layout
+ *   5. Sidebar                — 패널, 오버레이, 네비, 날씨 위젯, 푸터
+ *   6. Booking Header         — 예약 확인 헤더, 액션 버튼
+ *   7. Card Container         — Welcome Card + Receipt Card 그리드
+ *   8. Welcome Card           — 테라코타 배경 환영 카드
+ *   9. Receipt Card           — 줄무늬 배경 영수증 카드
+ *  10. Info Cards             — Arrival / Wifi / Breakfast 정보 카드
+ *  11. Accessibility          — 키보드 포커스 스타일
+ *  12. Responsive – Tablet    — ≥ 768px
+ *  13. Responsive – Desktop   — ≥ 1024px
+ *  -----------------------------------------------------------------
+ */
+
+
+/* === 1. Fonts & Reset === */
+
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&display=swap');
 
 *,
@@ -9,6 +34,7 @@
   padding: 0;
 }
 
+/* clip은 hidden과 달리 스크롤 컨테이너를 생성하지 않아 position:sticky가 정상 동작함 */
 html {
   overflow-x: clip;
 }
@@ -40,7 +66,9 @@ svg {
   max-width: 100%;
 }
 
-/* === Design Tokens === */
+
+/* === 2. Design Tokens === */
+
 :root {
   /* Colors */
   --neutral-900: #2B2620;
@@ -101,7 +129,10 @@ svg {
   --spacing-1800: 140px;
 }
 
-/* === Typography Presets === */
+
+/* === 3. Typography Presets === */
+
+/* Fraunces — 디스플레이/카드 제목 */
 .text-preset-1 {
   font-family: 'Fraunces', serif;
   font-weight: 400;
@@ -160,6 +191,7 @@ svg {
   letter-spacing: 0px;
 }
 
+/* DM Sans — 본문/UI 텍스트 */
 .text-preset-5-medium {
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
@@ -176,20 +208,21 @@ svg {
   letter-spacing: 0.3px;
 }
 
-.text-preset-6 {
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 140%;
-  letter-spacing: 2px;
-}
-
 .text-preset-7 {
   font-family: 'DM Sans', sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 120%;
   letter-spacing: 0.4px;
+}
+
+/* DM Mono — 레이블/배지/코드성 텍스트 */
+.text-preset-6 {
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 2px;
 }
 
 .text-preset-8 {
@@ -224,7 +257,9 @@ svg {
   letter-spacing: 1px;
 }
 
-/* === Layout === */
+
+/* === 4. Layout === */
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -234,6 +269,7 @@ svg {
   width: 100%;
 }
 
+/* --- Mobile Header (≥1024px에서 hidden 처리됨) --- */
 .mobile-header {
   display: flex;
   align-items: center;
@@ -257,11 +293,7 @@ svg {
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.mobile-header .menu-btn:hover {
-  background-color: var(--neutral-200);
-  border-color: var(--neutral-600);
-}
-
+/* --- Main Layout --- */
 .main-layout {
   display: flex;
   flex: 1;
@@ -277,14 +309,21 @@ svg {
   margin: 0 auto;
 }
 
-/* === Component: Sidebar === */
+
+/* === 5. Sidebar === */
+
+/* --- Panel ---
+ * display:none 대신 visibility + transform 조합을 사용:
+ * visibility는 transition이 가능하고, transform은 GPU 가속 슬라이드를 제공함.
+ * left 오프셋은 .active 시 0으로 전환되며 translateX와 함께 슬라이드 효과를 만듦.
+ */
 .sidebar {
   position: fixed;
   top: 0;
   left: -320px;
   width: 320px;
   height: 100vh;
-  background: #FBF6EF;
+  background: var(--neutral-100);
   backdrop-filter: blur(1px);
   z-index: 100;
   display: flex;
@@ -303,6 +342,9 @@ svg {
   visibility: visible;
 }
 
+/* --- Overlay ---
+ * backdrop-filter로 배경을 살짝 블러 처리해 깊이감 확보
+ */
 .sidebar-overlay {
   display: none;
   position: fixed;
@@ -319,6 +361,7 @@ svg {
   display: block;
 }
 
+/* --- Sidebar Header & Nav --- */
 .sidebar-top {
   display: flex;
   flex-direction: column;
@@ -334,7 +377,7 @@ svg {
   padding: 0px 0px 16px;
   gap: 16px;
   width: 288px;
-  border-bottom: 1px solid #E4DED5;
+  border-bottom: 1px solid var(--neutral-400);
 }
 
 .sidebar-header .logo-wrapper {
@@ -357,21 +400,17 @@ svg {
   gap: 10px;
   width: 32px;
   height: 32px;
-  border: 1px solid #E4DED5;
-  border-radius: 4px;
+  border: 1px solid var(--neutral-400);
+  border-radius: var(--radius-4);
   background: transparent;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-.sidebar-header .close-btn:hover {
-  background-color: rgba(62, 44, 30, 0.04);
-}
-
 .sidebar-divider {
   width: 288px;
   height: 1px;
-  background: #E4DED5;
+  background: var(--neutral-400);
 }
 
 .sidebar-nav {
@@ -392,20 +431,16 @@ svg {
   gap: 8px;
   width: 288px;
   height: 40px;
-  border-radius: 8px;
-  color: #5A4C3C;
+  border-radius: var(--radius-8);
+  color: var(--neutral-700);
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .nav-link.active {
-  background: #FFFFFF;
-  box-shadow: 0px 1px 0px rgba(62, 44, 30, 0.03), inset 0px 0px 0px 1px rgba(62, 44, 30, 0.08);
-  color: #2B2620;
-}
-
-.nav-link:hover {
   background: var(--neutral-0);
+  box-shadow: 0px 1px 0px rgba(62, 44, 30, 0.03), inset 0px 0px 0px 1px rgba(62, 44, 30, 0.08);
+  color: var(--neutral-900);
 }
 
 .nav-link-content {
@@ -431,17 +466,18 @@ svg {
   padding: 0px;
   width: 16px;
   height: 16px;
-  background: #B7411B;
-  border-radius: 999px;
+  background: var(--terracotta-600);
+  border-radius: var(--radius-full);
   font-family: 'Fraunces';
   font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 140%;
-  color: #FBF6EF;
+  color: var(--neutral-100);
 }
 
-/* Weather Widget */
+/* --- Weather Widget --- */
+/* isolation: isolate로 독립 스태킹 컨텍스트를 생성해 내부 z-index가 외부에 영향을 주지 않음 */
 .weather-widget {
   box-sizing: border-box;
   display: flex;
@@ -454,7 +490,7 @@ svg {
   height: 102px;
   background: var(--sun-300);
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.04), 0px 10px 24px -16px rgba(194, 90, 46, 0.4);
-  border-radius: 16px;
+  border-radius: var(--radius-16);
   position: relative;
   overflow: hidden;
   margin-top: 0px;
@@ -479,7 +515,7 @@ svg {
   line-height: 140%;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #5A4C3C;
+  color: var(--neutral-700);
   white-space: nowrap;
 }
 
@@ -492,7 +528,7 @@ svg {
   font-size: 32px;
   line-height: 120%;
   letter-spacing: -0.25px;
-  color: #2B2620;
+  color: var(--neutral-900);
   margin: 0;
   display: flex;
   align-items: center;
@@ -507,10 +543,10 @@ svg {
   font-size: 12px;
   line-height: 120%;
   letter-spacing: 0.4px;
-  color: #5A4C3C;
+  color: var(--neutral-700);
 }
 
-/* Sidebar Footer */
+/* --- Sidebar Footer --- */
 .sidebar-footer {
   display: flex;
   flex-direction: column;
@@ -531,7 +567,7 @@ svg {
   gap: 10px;
   width: 288px;
   height: 92px;
-  border-top: 1px dashed #E4DED5;
+  border-top: 1px dashed var(--neutral-400);
 }
 
 .sidebar-footer-info p {
@@ -546,7 +582,7 @@ svg {
   align-items: center;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #7A6A57;
+  color: var(--neutral-600);
   margin: 0;
 }
 
@@ -554,7 +590,14 @@ svg {
   height: 28px;
 }
 
-/* === Main content styles === */
+
+/* === 6. Booking Header & Action Buttons === */
+
+.booking-top-section {
+  width: 343px;
+  margin: 0 auto;
+}
+
 .booking-header {
   margin-bottom: var(--spacing-200);
 }
@@ -594,11 +637,6 @@ svg {
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.btn-secondary:hover {
-  background-color: var(--neutral-200);
-  border-color: var(--neutral-400);
-}
-
 .btn-primary {
   background-color: var(--neutral-900);
   color: var(--sun-50);
@@ -611,11 +649,10 @@ svg {
   transition: background-color 0.2s ease;
 }
 
-.btn-primary:hover {
-  background-color: var(--neutral-800);
-}
 
-/* === Card Container / Grid === */
+/* === 7. Card Container === */
+
+/* Welcome Card(z-index:1)와 Receipt Card(z-index:0)가 겹쳐 보이도록 column 정렬 */
 .cards-container {
   display: flex;
   flex-direction: column;
@@ -627,11 +664,15 @@ svg {
   margin: 0 auto var(--spacing-600);
 }
 
+/* 데스크탑 hover 팬아웃 애니메이션 시 중앙에 등장하는 태양 아이콘 */
 .cards-sun-icon {
   display: none;
 }
 
-/* === Component: Welcome Card === */
+
+/* === 8. Welcome Card === */
+
+/* overflow: hidden — 배경 그라디언트와 내부 요소가 카드 회전 경계 밖으로 삐져나오는 것을 방지 */
 .welcome-card {
   display: flex;
   flex-direction: column;
@@ -640,9 +681,9 @@ svg {
   gap: 20px;
   width: 327px;
   height: 420px;
-  background: radial-gradient(120% 80% at 100% 0%, #E07A3F 0%, #C25A2E 50.24%, #9F3E1D 100%);
+  background: radial-gradient(120% 80% at 100% 0%, var(--terracotta-400) 0%, var(--terracotta-500) 50.24%, var(--terracotta-700) 100%);
   box-shadow: 0px 10px 40px -20px rgba(194, 90, 46, 0.35), 0px 50px 80px -30px rgba(169, 66, 31, 0.25), inset 0px 0px 0px 1px rgba(255, 244, 220, 0.12);
-  border-radius: 20px;
+  border-radius: var(--radius-20);
   transform: rotate(2deg);
   z-index: 1;
   position: relative;
@@ -658,7 +699,7 @@ svg {
   padding: 16px 0px 0px;
   width: 279px;
   height: 65px;
-  border-top: 1px dashed #E07A3F;
+  border-top: 1px dashed var(--terracotta-400);
 }
 
 .welcome-card-tag {
@@ -666,7 +707,7 @@ svg {
   height: 14px;
   display: flex;
   align-items: center;
-  color: #FFF4DC;
+  color: var(--sun-50);
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -701,7 +742,7 @@ svg {
   height: 23px;
   display: flex;
   align-items: center;
-  color: #FFDE7A;
+  color: var(--sun-200);
 }
 
 .welcome-card-hostname {
@@ -709,7 +750,7 @@ svg {
   height: 48px;
   display: flex;
   align-items: center;
-  color: #FFF4DC;
+  color: var(--sun-50);
 }
 
 .welcome-card-desc {
@@ -717,7 +758,7 @@ svg {
   height: 60px;
   display: flex;
   align-items: center;
-  color: #FFF4DC;
+  color: var(--sun-50);
   font-family: 'DM Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -739,7 +780,7 @@ svg {
   height: 14px;
   display: flex;
   align-items: center;
-  color: #FFF4DC;
+  color: var(--sun-50);
   text-transform: uppercase;
 }
 
@@ -748,10 +789,14 @@ svg {
   height: 28px;
   display: flex;
   align-items: center;
-  color: #FFF4DC;
+  color: var(--sun-50);
 }
 
-/* === Component: Receipt Card === */
+
+/* === 9. Receipt Card === */
+
+/* filter: drop-shadow 사용 이유 — box-shadow는 요소의 사각형 경계에만 적용되지만
+ * drop-shadow는 rotate된 카드의 실제 시각적 윤곽선을 따라 그림자를 생성함 */
 .receipt-card-wrapper {
   filter: drop-shadow(0px 1px 0px rgba(0, 0, 0, 0.03)) drop-shadow(0px 10px 15px rgba(62, 44, 30, 0.12)) drop-shadow(0px 20px 25px rgba(62, 44, 30, 0.08));
   position: relative;
@@ -761,6 +806,7 @@ svg {
   margin: 0;
 }
 
+/* isolation: isolate — repeating-linear-gradient 배경이 외부 스태킹 컨텍스트에 영향을 주지 않도록 격리 */
 .receipt-card {
   display: flex;
   flex-direction: column;
@@ -770,18 +816,16 @@ svg {
   isolation: isolate;
   width: 327px;
   height: 420px;
-  background: #FDFBF7;
+  background: var(--neutral-50);
   background-image: repeating-linear-gradient(to bottom,
       transparent,
       transparent 32px,
       rgba(228, 222, 213, 0.096) 32px,
       rgba(228, 222, 213, 0.096) 33px);
-  border-radius: 20px;
+  border-radius: var(--radius-20);
   transform: rotate(-2deg);
   position: relative;
 }
-
-
 
 .receipt-header {
   display: flex;
@@ -790,7 +834,7 @@ svg {
   padding: 0px 0px 12px;
   width: 279px;
   height: 58px;
-  border-bottom: 1px dashed #E4DED5;
+  border-bottom: 1px dashed var(--neutral-400);
 }
 
 .receipt-header-text {
@@ -808,7 +852,7 @@ svg {
   height: 14px;
   display: flex;
   align-items: center;
-  color: #7A6A57;
+  color: var(--neutral-600);
   text-transform: uppercase;
 }
 
@@ -817,7 +861,7 @@ svg {
   height: 28px;
   display: flex;
   align-items: center;
-  color: #2B2620;
+  color: var(--neutral-900);
 }
 
 .receipt-no {
@@ -828,7 +872,7 @@ svg {
   gap: 2px;
   width: 67px;
   height: 30px;
-  color: #7A6A57;
+  color: var(--neutral-600);
 }
 
 .receipt-no span {
@@ -864,7 +908,7 @@ svg {
   height: 14px;
   display: flex;
   align-items: center;
-  color: #7A6A57;
+  color: var(--neutral-600);
   text-transform: uppercase;
 }
 
@@ -873,7 +917,7 @@ svg {
   height: 38px;
   display: flex;
   align-items: center;
-  color: #2B2620;
+  color: var(--neutral-900);
   white-space: nowrap;
 }
 
@@ -882,7 +926,7 @@ svg {
   height: 14px;
   display: flex;
   align-items: center;
-  color: #5A4C3C;
+  color: var(--neutral-700);
   white-space: nowrap;
 }
 
@@ -895,7 +939,7 @@ svg {
   gap: 8px;
   width: 279px;
   height: 88px;
-  border-top: 1px dashed #E4DED5;
+  border-top: 1px dashed var(--neutral-400);
   font-family: 'DM Sans', sans-serif;
 }
 
@@ -907,12 +951,12 @@ svg {
   padding: 0px;
   width: 279px;
   height: 20px;
-  color: #2B2620;
+  color: var(--neutral-900);
   font-family: 'DM Sans', sans-serif;
 }
 
 .receipt-row.tourist-tax {
-  color: #5A4C3C;
+  color: var(--neutral-700);
 }
 
 .receipt-cost {
@@ -928,7 +972,7 @@ svg {
   padding: 12px 0px 0px;
   width: 279px;
   height: 46px;
-  border-top: 1px solid #7A6A57;
+  border-top: 1px solid var(--neutral-600);
 }
 
 .total-label {
@@ -936,7 +980,7 @@ svg {
   height: 17px;
   display: flex;
   align-items: center;
-  color: #7A6A57;
+  color: var(--neutral-600);
   letter-spacing: 2px;
   text-transform: uppercase;
   white-space: nowrap;
@@ -947,7 +991,7 @@ svg {
   height: 34px;
   display: flex;
   align-items: center;
-  color: #2B2620;
+  color: var(--neutral-900);
   white-space: nowrap;
 }
 
@@ -966,7 +1010,7 @@ svg {
   height: 13px;
   display: flex;
   align-items: center;
-  color: #7A6A57;
+  color: var(--neutral-600);
   text-transform: uppercase;
 }
 
@@ -980,16 +1024,21 @@ svg {
   height: 100%;
 }
 
-/* === Component: Info Card === */
+
+/* === 10. Info Cards === */
+
+/* --- Container --- */
 .info-cards-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
   gap: 18px;
-  width: 288px;
+  width: 343px;
+  margin: 0 auto;
 }
 
+/* --- Base Card --- */
 .info-card {
   box-sizing: border-box;
   display: flex;
@@ -998,19 +1047,21 @@ svg {
   padding: 20px 16px;
   gap: 20px;
   width: 288px;
-  background: #FDFBF7;
-  border: 1px solid #E4DED5;
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-400);
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.02), 0px 1px 1px rgba(62, 44, 30, 0.04), 0px 18px 40px -28px rgba(62, 44, 30, 0.25);
-  border-radius: 16px;
+  border-radius: var(--radius-16);
   position: relative;
 }
 
+/* 모바일에서 실제 콘텐츠 너비(343px)에 맞춰 카드 너비 확장 */
 .info-card.arrival,
 .info-card.wifi,
 .info-card.breakfast {
   width: 343px;
 }
 
+/* --- Card Header --- */
 .info-card-header {
   display: flex;
   flex-direction: row;
@@ -1039,7 +1090,7 @@ svg {
   gap: 10px;
   width: 40px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: var(--radius-8);
 }
 
 .badge-icon img {
@@ -1047,16 +1098,17 @@ svg {
   height: 24px;
 }
 
+/* 카드 유형별 배지 배경색 */
 .info-card.arrival .badge-icon {
-  background: #B7411B;
+  background: var(--terracotta-600);
 }
 
 .info-card.wifi .badge-icon {
-  background: #5769C6;
+  background: var(--blue-500);
 }
 
 .info-card.breakfast .badge-icon {
-  background: #C04A72;
+  background: var(--rose-500);
 }
 
 .badge-label {
@@ -1071,18 +1123,20 @@ svg {
   text-transform: uppercase;
 }
 
+/* 카드 유형별 배지 레이블 색상 */
 .info-card.arrival .badge-label {
-  color: #B7411B;
+  color: var(--terracotta-600);
 }
 
 .info-card.wifi .badge-label {
-  color: #5769C6;
+  color: var(--blue-500);
 }
 
 .info-card.breakfast .badge-label {
-  color: #C04A72;
+  color: var(--rose-500);
 }
 
+/* 카드 우측 상단에 절대 배치되는 번호 (01 / 02 / 03) */
 .info-card-number {
   position: absolute;
   width: auto;
@@ -1100,17 +1154,18 @@ svg {
 }
 
 .info-card.arrival .info-card-number {
-  color: #B7411B;
+  color: var(--terracotta-600);
 }
 
 .info-card.wifi .info-card-number {
-  color: #5769C6;
+  color: var(--blue-500);
 }
 
 .info-card.breakfast .info-card-number {
-  color: #C04A72;
+  color: var(--rose-500);
 }
 
+/* --- Card Content --- */
 .info-card-content {
   display: flex;
   flex-direction: column;
@@ -1139,7 +1194,7 @@ svg {
   display: flex;
   align-items: center;
   letter-spacing: -0.2px;
-  color: #2B2620;
+  color: var(--neutral-900);
 }
 
 .info-card-desc.text-preset-5-medium {
@@ -1153,7 +1208,7 @@ svg {
   display: flex;
   align-items: center;
   letter-spacing: 0.4px;
-  color: #7A6A57;
+  color: var(--neutral-600);
   margin: 0;
 }
 
@@ -1165,7 +1220,7 @@ svg {
   margin: 0;
 }
 
-/* Wifi Info Custom Flex Overlay mapping */
+/* --- Wifi Card: 비밀번호 테이블 --- */
 .wifi-table {
   display: flex;
   flex-direction: column;
@@ -1183,8 +1238,8 @@ svg {
   padding: 0px 10px;
   width: 311px;
   height: 32px;
-  background: #F2EEEA;
-  border-radius: 8px;
+  background: var(--neutral-200);
+  border-radius: var(--radius-8);
   box-sizing: border-box;
 }
 
@@ -1192,6 +1247,7 @@ svg {
   margin-bottom: 4px;
 }
 
+/* 브라우저 UA 스타일시트가 table cell에 배경을 강제 적용하므로 !important 필요 */
 .wifi-table td {
   border: none;
   padding: 0;
@@ -1209,7 +1265,7 @@ svg {
   line-height: 140%;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #7A6A57;
+  color: var(--neutral-600);
 }
 
 .wifi-table td:last-child {
@@ -1220,7 +1276,7 @@ svg {
   font-size: 12px;
   line-height: 120%;
   letter-spacing: 0.4px;
-  color: #2B2620;
+  color: var(--neutral-900);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1237,8 +1293,8 @@ svg {
   gap: 10px;
   width: 43px;
   height: 20px;
-  border: 1px solid #E4DED5;
-  border-radius: 999px;
+  border: 1px solid var(--neutral-400);
+  border-radius: var(--radius-full);
   font-family: 'DM Mono';
   font-style: normal;
   font-weight: 400;
@@ -1246,26 +1302,54 @@ svg {
   line-height: 140%;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #7A6A57;
+  color: var(--neutral-600);
   background: transparent;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.copy-btn:hover {
-  background-color: #fcfbf9;
-  border-color: var(--neutral-400);
-}
 
-/* === Accessibility / Interaction === */
+/* === 11. Accessibility === */
+
 button:focus-visible,
 a:focus-visible {
   outline: 3px solid var(--blue-500);
   outline-offset: 2px;
 }
 
-/* === Responsive Design (Tablet) === */
+
+/* === 12. Responsive – Tablet (≥ 768px) === */
+
 @media (min-width: 768px) {
+
+  /* --- Mobile Header --- */
+  .mobile-header {
+    padding: 16px 24px;
+    gap: 10px;
+    height: 74px;
+  }
+
+  .mobile-header .menu-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+
+  /* --- Main Layout --- */
+  .main-layout {
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 24px 40px;
+    gap: 40px;
+    max-width: 768px;
+    margin: 0 auto;
+  }
+
+  .content-wrapper {
+    padding: 0;
+  }
+
+  /* --- Sidebar --- */
   .sidebar {
     width: 384px;
     left: -384px;
@@ -1296,49 +1380,7 @@ a:focus-visible {
     text-overflow: ellipsis;
   }
 
-  .mobile-header {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 24px !important;
-    gap: 10px;
-    width: 100% !important;
-    height: 74px !important;
-    border-bottom: 1px solid #E4DED5 !important;
-  }
-
-  .mobile-header .menu-btn {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-    gap: 10px;
-    width: 40px !important;
-    height: 40px !important;
-    border: 1px solid #E4DED5 !important;
-    border-radius: 4px !important;
-    background: transparent;
-  }
-
-  .content-wrapper {
-    padding: 0 !important;
-  }
-
-  .main-layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 24px 24px 40px;
-    gap: 40px;
-    width: 100%;
-    max-width: 768px;
-    margin: 0 auto;
-  }
-
+  /* --- Booking Header --- */
   .booking-top-section {
     display: flex;
     flex-direction: row;
@@ -1346,596 +1388,243 @@ a:focus-visible {
     align-items: center;
     width: 720px;
     height: 72px;
-    margin-bottom: 40px !important;
+    margin-bottom: 40px;
   }
 
   .booking-header {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0px;
     gap: 4px;
-    width: 307px !important;
-    height: 72px !important;
+    width: 307px;
+    height: 72px;
     margin-bottom: 0;
   }
 
-  .booking-header-tag {
-    font-family: 'DM Mono';
-    font-size: 12px !important;
-    letter-spacing: 2px !important;
-    line-height: 140% !important;
-  }
-
-  .booking-title {
-    font-family: 'Fraunces';
-    font-size: 40px !important;
-    letter-spacing: -0.5px !important;
-    line-height: 120% !important;
-  }
-
+  /* --- Action Buttons --- */
   .action-buttons {
-    display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0px !important;
-    gap: 16px !important;
-    width: 281px !important;
-    height: 37px !important;
-    flex: none !important;
-    order: 1 !important;
-    flex-grow: 0 !important;
-    margin: 0 !important;
+    flex-wrap: nowrap;
+    gap: 16px;
+    width: 281px;
+    height: 37px;
+    flex: none;
+    margin: 0;
   }
 
   .action-buttons .btn-secondary {
-    box-sizing: border-box;
+    padding: 10px 16px;
+    width: 120px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 16px !important;
-    width: 120px !important;
-    height: 37px !important;
-    background: transparent !important;
-    border: 1px solid var(--neutral-400) !important;
-    border-radius: 999px !important;
-    font-family: 'DM Sans' !important;
-    font-style: normal !important;
-    font-weight: 600 !important;
-    font-size: 14px !important;
-    line-height: 120% !important;
-    letter-spacing: 0.3px !important;
-    color: #2B2620 !important;
-    flex: none !important;
-    order: 0 !important;
-    flex-grow: 0 !important;
-    white-space: nowrap !important;
-  }
-
-  .action-buttons .btn-secondary:hover {
-    background-color: var(--neutral-200) !important;
-    border-color: var(--neutral-400) !important;
-  }
-
-  .action-buttons .btn-primary:hover {
-    background-color: var(--neutral-800) !important;
+    background: transparent;
+    flex: none;
+    white-space: nowrap;
   }
 
   .action-buttons .btn-primary {
-    box-sizing: border-box;
+    padding: 10px 16px;
+    width: 145px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 16px !important;
-    width: 145px !important;
-    height: 37px !important;
-    background: #2B2620 !important;
-    border-radius: 999px !important;
-    font-family: 'DM Sans' !important;
-    font-style: normal !important;
-    font-weight: 600 !important;
-    font-size: 14px !important;
-    line-height: 120% !important;
-    letter-spacing: 0.3px !important;
-    color: #FFF4DC !important;
   }
 
+  /* --- Card Container --- */
+  /* row-reverse로 Welcome Card가 우측, Receipt Card가 좌측에 위치 */
   .cards-container {
-    display: flex;
-    flex-direction: row-reverse !important;
-    justify-content: center !important;
-    align-items: center;
-    padding: 0px;
+    flex-direction: row-reverse;
+    justify-content: center;
     width: 720px;
-    height: 480px !important;
-    margin: 0 auto 55px !important;
+    height: 480px;
+    margin: 0 auto 55px;
     gap: 0;
   }
 
+  /* --- Welcome Card --- */
   .welcome-card {
-    width: 340px !important;
-    height: 420px !important;
-    transform: rotate(4deg) !important;
-    z-index: 2 !important;
-    margin: 0 !important;
-    flex: none !important;
+    width: 340px;
+    transform: rotate(4deg);
+    z-index: 2;
+    flex: none;
   }
 
-  .welcome-card-header {
-    padding: 16px 0px 0px !important;
-    width: 292px !important;
-    height: 65px !important;
-    border-top: 1px dashed #E07A3F !important;
-    box-sizing: border-box;
-  }
-
-  .welcome-card-body {
-    padding: 0px !important;
-    gap: 24px !important;
-    width: 292px !important;
-    height: 221px !important;
-  }
-
-  .welcome-card-body-top {
-    gap: 8px !important;
-    width: 292px !important;
-    height: 79px !important;
-  }
-
-  .welcome-card-subtitle {
-    font-size: 20px !important;
-    line-height: 140% !important;
-    letter-spacing: -0.1px !important;
-  }
-
-  .welcome-card-hostname {
-    font-size: 40px !important;
-    line-height: 120% !important;
-    letter-spacing: -0.5px !important;
-  }
-
-  .welcome-card-desc {
-    font-size: 14px !important;
-    line-height: 140% !important;
-  }
-
-  .welcome-card-footer {
-    gap: 4px !important;
-    width: 292px !important;
-    height: 46px !important;
-  }
-
-  .welcome-card-footer-label {
-    width: 292px !important;
-    height: 14px !important;
-  }
-
+  .welcome-card-header,
+  .welcome-card-body,
+  .welcome-card-footer,
+  .welcome-card-footer-label,
   .welcome-card-room {
-    width: 292px !important;
-    height: 28px !important;
-    font-size: 20px !important;
-    line-height: 140% !important;
-    letter-spacing: -0.1px !important;
+    width: 292px;
   }
 
+  /* --- Receipt Card --- */
   .receipt-card-wrapper {
-    width: 340px !important;
-    height: 420px !important;
-    z-index: 0 !important;
-    margin: 0 !important;
-    transform: none !important;
-    flex: none !important;
-  }
-
-  .receipt-payment-info {
-    white-space: nowrap !important;
+    width: 340px;
+    flex: none;
   }
 
   .receipt-card {
-    width: 340px !important;
-    height: 420px !important;
-    transform: rotate(-4deg) !important;
+    width: 340px;
+    transform: rotate(-4deg);
   }
 
-  .receipt-header {
-    padding: 0px 0px 12px !important;
-    height: 58px !important;
-    width: 292px !important;
-    box-sizing: border-box;
-  }
-
-  .receipt-header .receipt-no {
-    height: 30px !important;
-    width: 67px !important;
-  }
-
+  .receipt-header,
   .receipt-details {
-    border-top: 1px dashed #E4DED5 !important;
-    padding: 12px 0px 0px !important;
-    gap: 8px !important;
-    width: 292px !important;
-    height: 88px !important;
-    box-sizing: border-box;
+    width: 292px;
   }
 
+  /* justify-content: flex-start + gap으로 Total label과 금액 간격 고정 */
   .receipt-total {
-    border-top: 1px solid #7A6A57 !important;
-    padding: 12px 0px 0px !important;
-    display: flex !important;
-    justify-content: flex-start !important;
-    gap: 103px !important;
-    width: 292px !important;
-    height: 46px !important;
-    box-sizing: border-box;
+    justify-content: flex-start;
+    gap: 103px;
+    width: 292px;
   }
 
   .receipt-total .total-label {
-    font-size: 12px !important;
-    line-height: 140% !important;
-    letter-spacing: 2px !important;
-    width: 90px !important;
-    flex-shrink: 0 !important;
+    width: 90px;
+    flex-shrink: 0;
   }
 
   .receipt-total .total-value {
-    font-size: 24px !important;
-    line-height: 140% !important;
-    letter-spacing: -0.2px !important;
-    width: 97px !important;
-    flex-shrink: 0 !important;
+    width: 97px;
+    flex-shrink: 0;
   }
 
+  /* justify-content: flex-start + gap으로 결제 정보와 바코드 간격 고정 */
   .receipt-footer {
-    display: flex !important;
-    justify-content: flex-start !important;
-    gap: 80px !important;
-    width: auto !important;
-    height: 28px !important;
+    justify-content: flex-start;
+    gap: 80px;
+    width: auto;
   }
 
   .receipt-payment-info {
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .barcode-wrapper {
-    width: 93px !important;
-    height: 28px !important;
-    flex: none !important;
-    flex-shrink: 0 !important;
+    width: 93px;
+    height: 28px;
+    flex: none;
   }
 
   .barcode-wrapper img {
-    width: 93px !important;
-    height: 28px !important;
-    display: block !important;
+    width: 93px;
+    height: 28px;
   }
 
+  /* --- Info Cards --- */
   .info-cards-container {
-    display: flex;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    align-items: flex-start !important;
-    align-content: flex-start !important;
-    padding: 0px !important;
-    gap: 18px !important;
-    width: 720px !important;
-    height: 522px !important;
-    margin: 0 auto !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 720px;
+    height: 522px;
+    margin: 0 auto;
   }
 
-  .info-card {
-    width: 351px !important;
-    height: 252px !important;
-    padding: 24px 20px !important;
-    gap: 24px !important;
+  /* .info-card.arrival/wifi/breakfast 선택자가 base의 .info-card보다 specificity가 높으므로
+   * 세 카드 모두 동일하게 명시해야 태블릿 크기로 정상 적용됨 */
+  .info-card.arrival,
+  .info-card.wifi,
+  .info-card.breakfast {
+    width: 351px;
+    height: 252px;
+    padding: 24px 20px;
+    gap: 24px;
   }
 
-  .info-card.arrival {
-    background: #FDFBF7 !important;
-    border: 1px solid #E4DED5 !important;
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.02), 0px 1px 1px rgba(62, 44, 30, 0.04), 0px 18px 40px -28px rgba(62, 44, 30, 0.25) !important;
-    border-radius: 16px !important;
+  .arrival .badge-label,
+  .wifi .badge-label,
+  .breakfast .badge-label {
+    width: 261px;
   }
 
-  .arrival .info-card-header {
-    width: 311px !important;
-    height: 40px !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 10px !important;
-  }
-
-  .arrival .badge-icon {
-    width: 40px !important;
-    height: 40px !important;
-    background: #B7411B !important;
-    border-radius: 8px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
-
+  /* arrival 카드의 열쇠 아이콘은 디자인상 1px 더 길어 명시적으로 오버라이드 */
   .arrival .badge-icon img {
-    width: 24px !important;
-    height: 25px !important;
+    height: 25px;
   }
 
-  .arrival .badge-label {
-    width: 261px !important;
-    height: 20px !important;
-    font-family: 'DM Mono' !important;
-    font-weight: 500 !important;
-    font-size: 14px !important;
-    line-height: 140% !important;
-    letter-spacing: 2px !important;
-    text-transform: uppercase !important;
-    color: #B7411B !important;
+  /* 각 카드 번호 텍스트 너비 개별 지정 (글자 수 차이에 따른 픽셀 단위 보정) */
+  .arrival .info-card-number   { width: 26px; }
+  .wifi .info-card-number      { width: 30px; }
+  .breakfast .info-card-number { width: 29px; }
+
+  /* 콘텐츠 높이는 각 카드별 텍스트 양에 따라 개별 지정 */
+  .arrival .info-card-content   { height: 132px; }
+  .wifi .info-card-content      { height: 140px; }
+  .breakfast .info-card-content { height: 130.85px; }
+
+  .arrival .info-card-title,
+  .wifi .info-card-title,
+  .breakfast .info-card-title {
+    height: 34px;
   }
 
-  .arrival .info-card-number {
-    position: absolute !important;
-    width: 26px !important;
-    height: 34px !important;
-    right: 0px !important;
-    font-family: 'Fraunces' !important;
-    font-size: 24px !important;
-    line-height: 140% !important;
-    letter-spacing: -0.2px !important;
-    color: #B7411B !important;
+  /* 태블릿에서 설명 텍스트의 폰트를 Fraunces(text-preset-5)에서 DM Sans로 교체 */
+  .arrival .info-card-desc.text-preset-5,
+  .wifi .info-card-desc.text-preset-5,
+  .breakfast .info-card-desc.text-preset-5 {
+    font-family: 'DM Sans';
+    font-size: 14px;
+    line-height: 140%;
+    color: var(--neutral-700);
   }
 
-  .arrival .info-card-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    padding: 0px !important;
-    gap: 16px !important;
-    width: 311px !important;
-    height: 132px !important;
-  }
+  .arrival .info-card-desc.text-preset-5   { height: 60px; }
+  .wifi .info-card-desc.text-preset-5      { height: 14px; }
+  .breakfast .info-card-desc.text-preset-5 { height: 58.85px; }
 
-  .arrival .info-card-title {
-    width: 311px !important;
-    height: 34px !important;
-    font-family: 'Fraunces' !important;
-    font-size: 24px !important;
-    line-height: 140% !important;
-    letter-spacing: -0.2px !important;
-    color: #2B2620 !important;
-    margin: 0 !important;
-  }
-
-  .arrival .info-card-desc.text-preset-5-medium {
-    width: 311px !important;
-    height: 14px !important;
-    font-family: 'DM Sans' !important;
-    font-size: 12px !important;
-    line-height: 120% !important;
-    letter-spacing: 0.4px !important;
-    color: #7A6A57 !important;
-    margin: 0 !important;
-  }
-
-  .arrival .info-card-desc.text-preset-5 {
-    width: 311px !important;
-    height: 60px !important;
-    font-family: 'DM Sans' !important;
-    font-size: 14px !important;
-    line-height: 140% !important;
-    color: #5A4C3C !important;
-    margin: 0 !important;
-  }
-
-  .info-card.wifi {
-    background: #FDFBF7 !important;
-    border: 1px solid #E4DED5 !important;
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.02), 0px 1px 1px rgba(62, 44, 30, 0.04), 0px 18px 40px -28px rgba(62, 44, 30, 0.25) !important;
-    border-radius: 16px !important;
-  }
-
-  .wifi .info-card-header {
-    width: 311px !important;
-    height: 40px !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 10px !important;
-  }
-
-  .wifi .badge-icon {
-    width: 40px !important;
-    height: 40px !important;
-    background: #5769C6 !important;
-    border-radius: 8px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
-
-  .wifi .badge-icon img {
-    width: 24px !important;
-    height: 24px !important;
-  }
-
-  .wifi .badge-label {
-    width: 261px !important;
-    height: 20px !important;
-    font-family: 'DM Mono' !important;
-    font-weight: 500 !important;
-    font-size: 14px !important;
-    line-height: 140% !important;
-    letter-spacing: 2px !important;
-    text-transform: uppercase !important;
-    color: #5769C6 !important;
-  }
-
-  .wifi .info-card-number {
-    position: absolute !important;
-    width: 30px !important;
-    height: 34px !important;
-    right: 0px !important;
-    font-family: 'Fraunces' !important;
-    font-size: 24px !important;
-    line-height: 140% !important;
-    letter-spacing: -0.2px !important;
-    color: #5769C6 !important;
-  }
-
-  .wifi .info-card-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    padding: 0px !important;
-    gap: 16px !important;
-    width: 311px !important;
-    height: 140px !important;
-  }
-
-  .wifi .info-card-title {
-    width: 311px !important;
-    height: 34px !important;
-    font-family: 'Fraunces' !important;
-    font-size: 24px !important;
-    line-height: 140% !important;
-    letter-spacing: -0.2px !important;
-    color: #2B2620 !important;
-    margin: 0 !important;
-  }
-
-  .wifi .info-card-desc.text-preset-5 {
-    width: 311px !important;
-    height: 14px !important;
-    font-family: 'DM Sans' !important;
-    font-size: 12px !important;
-    line-height: 120% !important;
-    letter-spacing: 0.4px !important;
-    color: #7A6A57 !important;
-    margin: 0 !important;
-  }
-
+  /* --- Wifi Table --- */
   .wifi-table {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 298px !important;
-    height: 68px !important;
-    gap: 4px !important;
-    margin: 0 !important;
+    width: 298px;
+    height: 68px;
   }
 
   .wifi-table tr {
-    width: 298px !important;
-    height: 32px !important;
-    padding: 0px 10px !important;
+    width: 298px;
   }
 
-  .wifi-table tr:first-child {
-    margin-bottom: 4px !important;
-  }
-
-  .info-card.breakfast {
-    background: #FDFBF7 !important;
-    border: 1px solid #E4DED5 !important;
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.02), 0px 1px 1px rgba(62, 44, 30, 0.04), 0px 18px 40px -28px rgba(62, 44, 30, 0.25) !important;
-    border-radius: 16px !important;
-  }
-
-  .breakfast .info-card-header {
-    width: 311px !important;
-    height: 40px !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 10px !important;
-  }
-
-  .breakfast .badge-icon {
-    width: 40px !important;
-    height: 40px !important;
-    background: #C04A72 !important;
-    border-radius: 8px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
-
-  .breakfast .badge-icon img {
-    width: 24px !important;
-    height: 24px !important;
-  }
-
-  .breakfast .badge-label {
-    width: 261px !important;
-    height: 20px !important;
-    font-family: 'DM Mono' !important;
-    font-weight: 500 !important;
-    font-size: 14px !important;
-    line-height: 140% !important;
-    letter-spacing: 2px !important;
-    text-transform: uppercase !important;
-    color: #C04A72 !important;
-  }
-
-  .breakfast .info-card-number {
-    position: absolute !important;
-    width: 29px !important;
-    height: 34px !important;
-    right: 0px !important;
-    font-family: 'Fraunces' !important;
-    font-size: 24px !important;
-    line-height: 140% !important;
-    letter-spacing: -0.2px !important;
-    color: #C04A72 !important;
-  }
-
-  .breakfast .info-card-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    padding: 0px !important;
-    gap: 16px !important;
-    width: 311px !important;
-    height: 130.85px !important;
-  }
-
-  .breakfast .info-card-title {
-    width: 311px !important;
-    height: 34px !important;
-    font-family: 'Fraunces' !important;
-    font-size: 24px !important;
-    line-height: 140% !important;
-    letter-spacing: -0.2px !important;
-    color: #2B2620 !important;
-    margin: 0 !important;
-  }
-
-  .breakfast .info-card-desc.text-preset-5-medium {
-    width: 311px !important;
-    height: 14px !important;
-    font-family: 'DM Sans' !important;
-    font-size: 12px !important;
-    line-height: 120% !important;
-    letter-spacing: 0.4px !important;
-    color: #7A6A57 !important;
-    margin: 0 !important;
-  }
-
-  .breakfast .info-card-desc.text-preset-5 {
-    width: 311px !important;
-    height: 58.85px !important;
-    font-family: 'DM Sans' !important;
-    font-size: 14px !important;
-    line-height: 140% !important;
-    color: #5A4C3C !important;
-    margin: 0 !important;
-  }
 }
 
-/* === Responsive Design (Desktop) === */
+
+/* === 13. Responsive – Desktop (≥ 1024px) === */
+
 @media (min-width: 1024px) {
+
+  /* --- Accessibility: 포커스 색상 브랜드 컬러로 교체 --- */
+  button:focus-visible,
+  a:focus-visible {
+    outline-color: var(--terracotta-600);
+  }
+
+  /* --- Hover Effects (데스크탑 전용) --- */
+  .mobile-header .menu-btn:hover {
+    background-color: var(--neutral-200);
+    border-color: var(--neutral-600);
+  }
+
+  .sidebar-header .close-btn:hover {
+    background-color: rgba(62, 44, 30, 0.04);
+  }
+
+  .nav-link:hover {
+    background: var(--neutral-0);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--neutral-200);
+    border-color: var(--neutral-400);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--neutral-800);
+  }
+
+  .copy-btn:hover {
+    background-color: #fcfbf9;
+    border-color: var(--neutral-400);
+  }
+
+  /* --- Layout --- */
   .mobile-header {
     display: none;
   }
@@ -1950,6 +1639,7 @@ a:focus-visible {
     gap: 0;
   }
 
+  /* --- Sidebar (항상 표시, sticky 고정) --- */
   .sidebar {
     position: sticky;
     left: 0;
@@ -1983,25 +1673,31 @@ a:focus-visible {
     text-overflow: clip;
   }
 
+  /* 데스크탑에서는 sidebar가 항상 표시되므로 닫기 버튼 불필요 */
   .sidebar-header .close-btn {
     display: none;
   }
 
+  /* --- Content --- */
   .content-wrapper {
     flex: 1;
     max-width: none;
     margin: 0;
-    padding: var(--spacing-400) var(--spacing-500) !important;
+    padding: var(--spacing-400) var(--spacing-500);
   }
 
   .booking-top-section {
     width: 100%;
   }
 
+  /* --- Card Container: 팬아웃 호버 애니메이션 ---
+   * 기본 상태: 두 카드가 서로 겹쳐 rotate(±4deg)
+   * hover 상태: 카드가 반대 방향으로 펼쳐지고(rotate ±9deg) 중앙에 태양 아이콘 등장
+   */
   .cards-container {
-    width: 100% !important;
+    width: 100%;
     max-width: none;
-    margin: 0 auto var(--spacing-400) !important;
+    margin: 0 auto var(--spacing-400);
   }
 
   .cards-sun-icon {
@@ -2023,67 +1719,66 @@ a:focus-visible {
   }
 
   .welcome-card {
-    width: 400px !important;
-    height: 420px !important;
-    transform: rotate(4deg) !important;
+    width: 400px;
+    height: 420px;
+    transform: rotate(4deg);
     transition: transform 0.4s ease;
   }
 
   .welcome-card-header,
   .welcome-card-body,
-  .welcome-card-footer,
-  .welcome-card-footer-label,
-  .welcome-card-room {
-    width: 352px !important;
-  }
-
   .welcome-card-title-group,
   .welcome-card-subtitle,
   .welcome-card-hostname,
-  .welcome-card-desc {
+  .welcome-card-desc,
+  .welcome-card-footer,
+  .welcome-card-footer-label,
+  .welcome-card-room {
     width: 352px;
   }
 
+  /* drop-shadow 제거 후 box-shadow로 교체: 데스크탑에서는 카드 각도가 커져
+   * 정확한 방향성 그림자가 필요하므로 box-shadow를 직접 지정 */
   .receipt-card-wrapper {
-    width: 400px !important;
-    height: 420px !important;
-    margin: 0 -10px !important;
-    transform: none !important;
+    width: 400px;
+    height: 420px;
+    margin: 0 -10px;
     filter: none;
     transition: margin 0.4s ease;
   }
 
   .receipt-card {
-    width: 400px !important;
-    height: 420px !important;
-    transform: rotate(-4deg) !important;
+    width: 400px;
+    height: 420px;
+    transform: rotate(-4deg);
     isolation: isolate;
     box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.03), 0px 16px 30px -20px rgba(62, 44, 30, 0.35), 0px 20px 40px -30px rgba(62, 44, 30, 0.16);
     transition: transform 0.4s ease;
   }
 
   .cards-container:hover .welcome-card {
-    transform: rotate(-9deg) !important;
+    transform: rotate(-9deg);
   }
 
   .cards-container:hover .receipt-card-wrapper {
-    margin: 0 !important;
+    margin: 0;
   }
 
   .cards-container:hover .receipt-card {
-    transform: rotate(9deg) !important;
+    transform: rotate(9deg);
   }
 
+  /* --- Receipt Card Inner --- */
   .receipt-header,
   .receipt-details,
   .receipt-total,
   .receipt-footer {
-    width: 352px !important;
+    width: 352px;
   }
 
   .receipt-total,
   .receipt-footer {
-    justify-content: space-between !important;
+    justify-content: space-between;
   }
 
   .receipt-dates {
@@ -2102,15 +1797,18 @@ a:focus-visible {
     gap: 22px;
   }
 
+  /* --- Info Cards --- */
   .info-cards-container {
     flex-direction: row;
-    flex-wrap: nowrap !important;
-    width: 100% !important;
-    height: auto !important;
-    gap: var(--spacing-300) !important;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: auto;
+    gap: var(--spacing-300);
   }
 
+  /* flex: 1로 세 카드가 동일한 너비로 균등 분배 */
   .info-card {
     flex: 1;
   }
+
 }
